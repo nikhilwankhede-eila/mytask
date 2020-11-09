@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 
 import { fetchMovies } from './actions/fetchActions'
 
-const App = ({ movies : {movies}, fetchMovies }) => {
+const App = ({ movies, fetchMovies }) => {
 
   const [searchFor, setSearchFor] = useState('')
   const [allPage, setAllPage] = useState(0)
@@ -26,7 +26,6 @@ const App = ({ movies : {movies}, fetchMovies }) => {
   useEffect(() => { 
     fetchMovies(searchFor, allPage);
     setAllPage(allPage + 1)
-    console.log(allPage)
     // eslint-disable-next-line  
   }, []);
 
@@ -56,8 +55,8 @@ const App = ({ movies : {movies}, fetchMovies }) => {
   }
 
   return (
-        
-            <div className="App">
+            <Provider store = {store}>
+              <div className="App">
               <Navbar /> 
               <br />
               {currentMovie == null ? 
@@ -68,13 +67,15 @@ const App = ({ movies : {movies}, fetchMovies }) => {
                 <MovieInfo closeMovieInfo = {closeMovieInfo} currentMovie = {currentMovie}/>}                    
               <br/>
             </div>
+            </Provider>
+            
              
       )  
 }
 
 App.propTypes = {
   fetchMovies: PropTypes.func.isRequired,
-  movies : PropTypes.object.isRequired,
+  movies : PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({
