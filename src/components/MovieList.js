@@ -1,13 +1,11 @@
 import React from 'react'
-import Movie from './Movie'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { connect } from 'react-redux';
 
 import { fetchMovies } from '../actions/fetchActions'
 
-const MovieList = ({fetchMovies, movies, viewMovieInfo}) => {
-    console.log(movies.length)
+const MovieList = ({fetchMovies, movies, viewMovieInfo, error}) => {
     return (
         <div className="container">
             <div className="row">
@@ -48,7 +46,8 @@ const MovieList = ({fetchMovies, movies, viewMovieInfo}) => {
     )                 
 }
 const mapStateToProps = state => ({
-    movies : state.movie
+    movies : state.movie,
+    error : state.error
   }); 
   
 export default connect(mapStateToProps, { fetchMovies })(MovieList);
